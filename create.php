@@ -12,22 +12,14 @@
 </head>
 
 <body class="background-image">
-    <style>
-        .background-image {
-            width: 100%;
-            height: 400px;
-            background-image: url('images/image2.jpg');
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-        }
-    </style>
+
+<?php include("navbar.php"); ?>
 
     <form action="add.php" method="POST">
-        <div class="ml-96 mt-48 w-3/6 border-2 border-orange-700 p-6 ">
+        <div class="mx-auto m-24 w-2/6 p-6 shadow-2xl rounded-lg">
             <div class="flex justify-evenly	">
                 <!-- <img src="../images/logo_form.png" alt="logo de la formulaire">  -->
-                <h3 class=" text-dark-600 text-xl font-medium">Ajouter Annonce</h3>
+                <h3 class=" text-dark-600 text-xl font-medium mb-12">Ajouter Annonce</h3>
             </div>
             <div class="relative z-0 w-full mb-6 group">
                 <input type="text" name="titre" id="titre" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-gray-500 focus:outline-none focus:ring-0 focus:border-gray-600 peer" placeholder=" " required />
@@ -53,14 +45,17 @@
             </div>
 
             <div class="flex justify-between">
-                <button type="submit" class="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800">Submit</button>
-                <button type="submit" href="index.php" class="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800">Back</button>
+            <a href="index.php" class="text-white bg-blue-600 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2 text-center inline-block">
+                Back
+            </a>
+                <button type="submit" class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
 
             </div>
 
         </div>
 
     </form>
+    <?php include("footer.php"); ?>
 
 </body>
 

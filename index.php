@@ -8,55 +8,47 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- Font Awesome CSS -->
     <title>Liste des Annonces</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    
 </head>
 
 <body >
-<style>
-        .background-image {
-            width: 100%;
-            height: 600px;
-            background-image: url('images/bg2.jpg');
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-        }
-    </style>
+<?php include("navbar.php"); ?>
 
     <div class=" mt-4 w-full p-6 ">
-        <div class="flex justify-around items-center p-4">
-            <!-- <h3 class="text-dark-600 text-xl font-medium">Liste des Annonces</h3> -->
+       
+    
+
+<div class="w-4/6 mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <div class="p-5 text-lg font-semibold text-gray-900 bg-white dark:text-white dark:bg-gray-800 flex justify-between ">
+            Users list
             <a href="create.php" class="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 text-center inline-block">
-                Ajouter Annonce
+                Add user
             </a>
-            
-            <form class="flex items-center w-96  space-x-1">
-                <label for="simple-search" class="sr-only">Search</label>
-                <div class="relative w-full">
-                    
-                    <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search branch name..." required>
-                </div>
-                <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                    </svg>
-                    <span class="sr-only">Search</span>
-                </button>
-            </form>
-        </div>
-
-
-        <div class="relative overflow-x-auto ">
-            <table class="w-4/6 mx-auto text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" class="px-6 py-3">Titre</th>
-                        <th scope="col" class="px-6 py-3">Description</th>
-                        <th scope="col" class="px-6 py-3">Prix</th>
-                        <th scope="col" class="px-6 py-3">Date de publication</th>
-                        <th scope="col" class="px-6 py-3">Image</th>
-                        <th scope="col" class="px-6 py-3 rounded-tr-lg">Action</th>
-                    </tr>
-                </thead>
+</div>
+       
+        <thead class="text-xs text-gray-700 uppercase bg-blue-200 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3 mb-4">
+                    Title
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Description
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Price (Dh)
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Date of publication
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Picture
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Action
+                </th>
+            </tr>
+        </thead>
                 <tbody class="bg-white">
 
                     <?php
@@ -120,9 +112,9 @@
                 // Check if there's more than one page
                 if ($totalPages > 1) {
                     echo "<nav class='block '>";
-                    echo "<ul class='flex pl-0 rounded list-none flex-wrap '>";
+                    echo "<ul class='flex pl-0 rounded list-none flex-wrap p-4'>";
                     for ($i = 1; $i <= $totalPages; $i++) {
-                        $active = ($i == $currentPage) ? 'bg-gray-200' : '';
+                        $active = ($i == $currentPage) ? 'bg-blue-100' : '';
                         echo "<li class='relative block py-2 px-3 ml-2 bg-white leading-tight border {$active}'>";
                         echo "<a href='?page={$i}' class='page-link'>{$i}</a>";
                         echo "</li>";
@@ -135,6 +127,8 @@
             </div>
         </div>
     </div>
+    <?php include("footer.php"); ?>
+
 </body>
 
 </html>
