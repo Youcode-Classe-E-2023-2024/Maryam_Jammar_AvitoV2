@@ -11,7 +11,7 @@
 
 </head>
 
-<body class="background-image">
+<body>
 
 <?php include("navbar.php"); ?>
 
