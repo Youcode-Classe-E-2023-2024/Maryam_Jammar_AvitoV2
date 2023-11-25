@@ -6,7 +6,7 @@
     <meta name="viewport" content="wid_userth=device-wid_userth, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.tailwindcss.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- Font Awesome CSS -->
-    <title>Liste des Annonces</title>
+    <title>Liste des users</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
 </head>
@@ -18,7 +18,7 @@
 
 
 
-        <div class="w-4/5 mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
+        <div class="w-full mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <div class="p-5 text-lg font-semibold text-gray-900 bg-white dark:text-white dark:bg-gray-800 flex justify-between ">
                     Users
@@ -68,7 +68,7 @@
                         die("La connexion a échoué : " . $conn->connect_error);
                     }
 
-                    $resultPerPage = 6; // Nombre d'annonces par page
+                    $resultPerPage = 6; // Nombre d'users par page
                     $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
                     $startFrom = ($currentPage - 1) * $resultPerPage;
 
@@ -76,7 +76,7 @@
                     $result = $conn->query($sql);
 
                     if ($result === FALSE) {
-                        echo "Erreur lors de la récupération des annonces : " . $conn->error;
+                        echo "Erreur lors de la récupération des users : " . $conn->error;
                     } else {
                         while ($row = $result->fetch_assoc()) {
                             echo "<tr>";
@@ -105,7 +105,31 @@
 
                 </tbody>
             </table>
+            
+        </div>
+        <div class="mt-4 flex justify-center items-center ">
+            <?php
+            $sqlCount = "SELECT COUNT(*) AS total FROM users";
+            $resultCount = $conn->query($sqlCount);
+            $row = $resultCount->fetch_assoc();
+            $totalRecords = $row['total'];
+            $totalPages = ceil($totalRecords / $resultPerPage);
 
+            // Check if there's more than one page
+            if ($totalPages > 1) {
+                echo "<nav class='block '>";
+                echo "<ul class='flex pl-0 rounded list-none flex-wrap p-4'>";
+                for ($i = 1; $i <= $totalPages; $i++) {
+                    $active = ($i == $currentPage) ? 'bg-blue-100' : '';
+                    echo "<li class='relative block py-2 px-3 ml-2 bg-white leading-tight border {$active}'>";
+                    echo "<a href='?page={$i}' class='page-link'>{$i}</a>";
+                    echo "</li>";
+                }
+                echo "</ul>";
+                echo "</nav>";
+            }
+            $conn->close();
+            ?>
         </div>
 
 
