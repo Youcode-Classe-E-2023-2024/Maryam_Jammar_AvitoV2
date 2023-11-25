@@ -45,7 +45,7 @@
                 $username = $row["username"];
                 $email = $row["email"];
                 $password = $row["password"];
-                $confirm_passowrd = $row["date_publication"];
+                $confirm_passowrd = $row["confirm_password"];
                 $phone = $row["phone"];
                 $city = $row["city"];
             } else {
