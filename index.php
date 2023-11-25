@@ -101,30 +101,30 @@
 
                 </tbody>
             </table>
-            <div class="mt-4 flex justify-center items-center ">
-                <?php
-                $sqlCount = "SELECT COUNT(*) AS total FROM annonces";
-                $resultCount = $conn->query($sqlCount);
-                $row = $resultCount->fetch_assoc();
-                $totalRecords = $row['total'];
-                $totalPages = ceil($totalRecords / $resultPerPage);
+        </div>
+        <div class="mt-4 flex justify-center items-center ">
+            <?php
+            $sqlCount = "SELECT COUNT(*) AS total FROM annonces";
+            $resultCount = $conn->query($sqlCount);
+            $row = $resultCount->fetch_assoc();
+            $totalRecords = $row['total'];
+            $totalPages = ceil($totalRecords / $resultPerPage);
 
-                // Check if there's more than one page
-                if ($totalPages > 1) {
-                    echo "<nav class='block '>";
-                    echo "<ul class='flex pl-0 rounded list-none flex-wrap p-4'>";
-                    for ($i = 1; $i <= $totalPages; $i++) {
-                        $active = ($i == $currentPage) ? 'bg-blue-100' : '';
-                        echo "<li class='relative block py-2 px-3 ml-2 bg-white leading-tight border {$active}'>";
-                        echo "<a href='?page={$i}' class='page-link'>{$i}</a>";
-                        echo "</li>";
-                    }
-                    echo "</ul>";
-                    echo "</nav>";
+            // Check if there's more than one page
+            if ($totalPages > 1) {
+                echo "<nav class='block '>";
+                echo "<ul class='flex pl-0 rounded list-none flex-wrap p-4'>";
+                for ($i = 1; $i <= $totalPages; $i++) {
+                    $active = ($i == $currentPage) ? 'bg-blue-100' : '';
+                    echo "<li class='relative block py-2 px-3 ml-2 bg-white leading-tight border {$active}'>";
+                    echo "<a href='?page={$i}' class='page-link'>{$i}</a>";
+                    echo "</li>";
                 }
-                $conn->close();
-                ?>
-            </div>
+                echo "</ul>";
+                echo "</nav>";
+            }
+            $conn->close();
+            ?>
         </div>
     </div>
     <?php include("footer.php"); ?>
