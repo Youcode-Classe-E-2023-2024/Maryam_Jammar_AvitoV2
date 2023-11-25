@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="wid_userth=device-wid_userth, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.tailwindcss.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- Font Awesome CSS -->
     <title>Liste des Annonces</title>
@@ -18,7 +18,7 @@
 
 
 
-        <div class="w-4/6 mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
+        <div class="w-4/5 mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <div class="p-5 text-lg font-semibold text-gray-900 bg-white dark:text-white dark:bg-gray-800 flex justify-between ">
                     Users
@@ -33,26 +33,81 @@
                             Username
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Phone
-                        </th>
-                        <th scope="col" class="px-6 py-3">
                             Email
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Password
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            Confirm Password
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Phone
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            City
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             Action
                         </th>
                     </tr>
                 </thead>
-                <tbody>
-                    
+                <tbody class="bg-white">
+
+                    <?php
+                    require_once 'connection.php';
+
+                    $servername = "localhost";
+                    $username = "root";
+                    $password = "";
+                    $dbname = "avito";
+
+                    $conn = new mysqli($servername, $username, $password, $dbname);
+
+                    if ($conn->connect_error) {
+                        die("La connexion a échoué : " . $conn->connect_error);
+                    }
+
+                    $resultPerPage = 6; // Nombre d'annonces par page
+                    $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
+                    $startFrom = ($currentPage - 1) * $resultPerPage;
+
+                    $sql = "SELECT * FROM users LIMIT $startFrom, $resultPerPage";
+                    $result = $conn->query($sql);
+
+                    if ($result === FALSE) {
+                        echo "Erreur lors de la récupération des annonces : " . $conn->error;
+                    } else {
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td class='p-2'>" . $row["username"] . "</td>";
+                            echo "<td class='p-2'>" . $row["email"] . "</td>";
+                            echo "<td class='p-2'>" . $row["password"] . "</td>";
+                            echo "<td class='p-2'>" . $row["confirm_password"] . "</td>";
+                            echo "<td class='p-2'>" .$row["phone"] . "</td>";
+                            echo "<td class='p-2'>" .$row["city"] . "</td>";
+                            echo "<td class='p-2 space-x-6'>
+                <a href='edit_user.php?id_user=" . $row["id_user"] . "' class='ml-4 text-blue-500 hover:text-blue-700'>
+                    <i class='fas fa-edit'></i> 
+                </a> 
+                <a href='delete_user.php?id_user=" . $row["id_user"] . "' class='text-red-600 hover:text-red-800' onclick='return confirm(\"Voulez-vous vraiment supprimer cette annonce ?\")'>
+                    <i class='fas fa-trash'></i> 
+                </a>
+            </td>";
+                            echo "</tr>";
+                        }
+
+                        $result->free();
+                        // $conn->close();
+                    }
+
+                    ?>
 
                 </tbody>
             </table>
+
         </div>
-        
+
 
     </div>
     <?php include("footer.php"); ?>
