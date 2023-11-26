@@ -63,7 +63,7 @@
                         die("La connexion a échoué : " . $conn->connect_error);
                     }
 
-                    $resultPerPage = 6; // Nombre d'users par page
+                    $resultPerPage = 10; // Nombre d'users par page
                     $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
                     $startFrom = ($currentPage - 1) * $resultPerPage;
 
