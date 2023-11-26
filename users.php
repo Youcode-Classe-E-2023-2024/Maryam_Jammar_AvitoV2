@@ -18,7 +18,7 @@
 
 
 
-        <div class="w-full mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
+        <div class="w-4/6 mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <div class="p-5 text-lg font-semibold text-gray-900 bg-white dark:text-white dark:bg-gray-800 flex justify-between ">
                     Users
@@ -35,12 +35,7 @@
                         <th scope="col" class="px-6 py-3">
                             Email
                         </th>
-                        <th scope="col" class="px-6 py-3">
-                            Password
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Confirm Password
-                        </th>
+                       
                         <th scope="col" class="px-6 py-3">
                             Phone
                         </th>
@@ -82,8 +77,8 @@
                             echo "<tr>";
                             echo "<td class='p-2'>" . $row["username"] . "</td>";
                             echo "<td class='p-2'>" . $row["email"] . "</td>";
-                            echo "<td class='p-2'>" . $row["password"] . "</td>";
-                            echo "<td class='p-2'>" . $row["confirm_password"] . "</td>";
+                            // echo "<td class='p-2'>" . $row["password"] . "</td>";
+                            // echo "<td class='p-2'>" . $row["confirm_password"] . "</td>";
                             echo "<td class='p-2'>" .$row["phone"] . "</td>";
                             echo "<td class='p-2'>" .$row["city"] . "</td>";
                             echo "<td class='p-2 space-x-6'>

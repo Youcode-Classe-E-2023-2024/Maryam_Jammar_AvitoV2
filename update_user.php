@@ -1,6 +1,10 @@
-<!-- update.php -->
 <?php
 require_once 'connection.php';
+
+// Vérifier la connexion
+if ($conn->connect_error) {
+    die("La connexion a échoué : " . $conn->connect_error);
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Récupérer les données du formulaire
@@ -29,19 +33,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // Exemple d'utilisation de MySQLi (assurez-vous de remplacer les informations de connexion)
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "avito";
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // Vérifier la connexion
-    if ($conn->connect_error) {
-        die("La connexion a échoué : " . $conn->connect_error);
-    }
-
     // Préparer la requête SQL pour mettre à jour l'utilisateur dans la base de données
     $sql = "UPDATE users SET username='$username', email='$email', password='$hashed_password', confirm_password='$confirm_password', phone='$phone', city='$city' WHERE id_user='$id_user'";
 
@@ -53,8 +44,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "Erreur lors de la mise à jour de l'utilisateur : " . $conn->error;
     }
-
-    // Fermer la connexion
-    $conn->close();
 }
+
+// Fermer la connexion en dehors de la condition POST
+$conn->close();
 ?>
