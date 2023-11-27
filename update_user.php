@@ -15,6 +15,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $confirm_password = $_POST["confirm_password"];
     $phone = $_POST["phone"];
     $city = $_POST["city"];
+    $id_role = $_POST["id_role"];
+
 
     // Vérifier si le mot de passe a été modifié
     if (!empty($password)) {
@@ -34,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Préparer la requête SQL pour mettre à jour l'utilisateur dans la base de données
-    $sql = "UPDATE users SET username='$username', email='$email', password='$hashed_password', confirm_password='$confirm_password', phone='$phone', city='$city' WHERE id_user='$id_user'";
+    $sql = "UPDATE users SET username='$username', email='$email', password='$hashed_password', confirm_password='$confirm_password', phone='$phone', city='$city', id_role='$id_role' WHERE id_user='$id_user'";
 
     // Exécuter la requête
     if ($conn->query($sql) === TRUE) {
