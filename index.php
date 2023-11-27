@@ -11,97 +11,63 @@
     
 </head>
 
-<body >
-<?php include("navbar.php"); ?>
+<body>
+    <?php include("navbar.php"); ?>
 
-    <div class=" mt-4 w-full p-6 ">
-       
-    
+    <div class="mt-4 w-full p-6 ">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <?php
+            require_once 'connection.php';
 
-<div class="w-4/6 mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <div class="p-5 text-lg font-semibold text-gray-900 bg-white dark:text-white dark:bg-gray-800 flex justify-between ">
-            Users list
-            <a href="create.php" class="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 text-center inline-block">
-                Add announce
-            </a>
-</div>
-       
-        <thead class="text-xs text-gray-700 uppercase bg-blue-200 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="px-6 py-3 mb-4">
-                    Title
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Description
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Price (Dh)
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Date of publication
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Picture
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Action
-                </th>
-            </tr>
-        </thead>
-                <tbody class="bg-white">
+            $servername = "localhost";
+            $username = "root";
+            $password = "";
+            $dbname = "avito";
 
-                    <?php
-                    require_once 'connection.php';
+            $conn = new mysqli($servername, $username, $password, $dbname);
 
-                    $servername = "localhost";
-                    $username = "root";
-                    $password = "";
-                    $dbname = "avito";
+            if ($conn->connect_error) {
+                die("La connexion a échoué : " . $conn->connect_error);
+            }
 
-                    $conn = new mysqli($servername, $username, $password, $dbname);
+            $resultPerPage = 6; // Nombre d'annonces par page
+            $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
+            $startFrom = ($currentPage - 1) * $resultPerPage;
 
-                    if ($conn->connect_error) {
-                        die("La connexion a échoué : " . $conn->connect_error);
-                    }
+            $sql = "SELECT * FROM annonces LIMIT $startFrom, $resultPerPage";
+            $result = $conn->query($sql);
 
-                    $resultPerPage = 6; // Nombre d'annonces par page
-                    $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
-                    $startFrom = ($currentPage - 1) * $resultPerPage;
-
-                    $sql = "SELECT * FROM annonces LIMIT $startFrom, $resultPerPage";
-                    $result = $conn->query($sql);
-
-                    if ($result === FALSE) {
-                        echo "Erreur lors de la récupération des annonces : " . $conn->error;
-                    } else {
-                        while ($row = $result->fetch_assoc()) {
-                            echo "<tr>";
-                            echo "<td class='p-2'>" . $row["titre"] . "</td>";
-                            echo "<td class='p-2'>" . $row["description"] . "</td>";
-                            echo "<td class='p-2'>" . $row["prix"] . " Dirhams</td>";
-                            echo "<td class='p-2'>" . $row["date_publication"] . "</td>";
-                            echo "<td class='p-2'><img src='" . $row["image_url"] . "' alt='Image de l'annonce' class='w-16 h-16'></td>";
-                            echo "<td class='p-2 space-x-6'>
-                                    <a href='edit.php?id=" . $row["id"] . "' class='ml-4 text-blue-500 hover:text-blue-700'>
-                                        <i class='fas fa-edit'></i> 
-                                    </a> 
-                                    <a href='delete.php?id=" . $row["id"] . "' class='text-red-600 hover:text-red-800' onclick='return confirm(\"Voulez-vous vraiment supprimer cette annonce ?\")'>
-                                        <i class='fas fa-trash'></i> 
-                                    </a>
-                                </td>";
-                            echo "</tr>";
-                        }
-
-                        $result->free();
-                        // $conn->close();
-                    }
-
-                    ?>
-
-                </tbody>
-            </table>
+            if ($result === FALSE) {
+                echo "Erreur lors de la récupération des annonces : " . $conn->error;
+            } else {
+                while ($row = $result->fetch_assoc()) {
+            ?>
+                    <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        <a href="#">
+                            <img class="p-8 rounded-t-lg" src="<?php echo $row["image_url"]; ?>" alt="product image" />
+                        </a>
+                        <div class="px-5 pb-5">
+                            <a href="#">
+                                <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white"><?php echo $row["titre"]; ?></h5>
+                            </a>
+                            <div class="flex items-center justify-between mt-2.5 mb-5">
+                                <!-- Vous pouvez ajouter ici d'autres détails de l'annonce, comme la note, les icônes, etc. -->
+                                <p><?php echo $row["description"]; ?></p>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-2xl font-bold text-gray-900 dark:text-white"><?php echo $row["prix"]; ?> Dh</span>
+                                <a href="#" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+            <?php
+                }
+                $result->free();
+            }
+            // $conn->close();
+            ?>
         </div>
+
         <div class="mt-4 flex justify-center items-center ">
             <?php
             $sqlCount = "SELECT COUNT(*) AS total FROM annonces";
@@ -127,8 +93,8 @@
             ?>
         </div>
     </div>
-    <?php include("footer.php"); ?>
 
+    <?php include("footer.php"); ?>
 </body>
 
 </html>
