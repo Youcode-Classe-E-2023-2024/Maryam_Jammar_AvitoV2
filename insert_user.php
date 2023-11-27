@@ -8,6 +8,8 @@ $password = $_POST['password'];
 $confirm_password = $_POST['confirm_password'];
 $phone = $_POST['phone'];
 $city = $_POST['city'];
+$role = $_POST['role'];
+
 
 // Vérifiez si le mot de passe et la confirmation du mot de passe correspondent
 if ($password !== $confirm_password) {
@@ -34,13 +36,15 @@ $password_hash = password_hash($password, PASSWORD_BCRYPT);  // Hacher le mot de
 $confirm_password_hash = password_hash($confirm_password, PASSWORD_BCRYPT);  // Hacher le mot de passe de manière sécurisée
 $phone = $conn->real_escape_string($phone);
 $city = $conn->real_escape_string($city);
+$role = $conn->real_escape_string($role);
+
 
 // Préparer la requête SQL pour insérer user dans la base de données
-$sql = "INSERT INTO users (username, email, password, confirm_password, phone, city) VALUES (?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO users (username, email, password, confirm_password, phone, city, role) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 // Utiliser une requête préparée pour éviter les attaques par injection SQL
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ssssss", $username, $email, $password_hash, $confirm_password_hash, $phone, $city);
+$stmt->bind_param("ssssss", $username, $email, $password_hash, $confirm_password_hash, $phone, $city, $role);
 
 // Exécuter la requête
 if ($stmt->execute()) {
