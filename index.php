@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- Font Awesome CSS -->
     <title>Liste des Annonces</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    
+
 </head>
 
 <body>
@@ -51,12 +51,20 @@
                                 <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white"><?php echo $row["titre"]; ?></h5>
                             </a>
                             <div class="flex items-center justify-between mt-2.5 mb-5">
-                                <!-- Vous pouvez ajouter ici d'autres détails de l'annonce, comme la note, les icônes, etc. -->
                                 <p><?php echo $row["description"]; ?></p>
                             </div>
                             <div class="flex items-center justify-between">
                                 <span class="text-2xl font-bold text-gray-900 dark:text-white"><?php echo $row["prix"]; ?> Dh</span>
-                                <a href="#" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add to cart</a>
+                                <div class="flex space-x-2">
+                                    <!-- Bouton Update -->
+                                    <a href='edit.php?id=<?php echo $row["id"]; ?>' class='text-blue-500 hover:text-blue-700'>
+                                        <button class="px-3 py-1 bg-green-600 text-white rounded">Update</button>
+                                    </a>
+                                    <!-- Bouton Delete -->
+                                    <a href='delete.php?id=<?php echo $row["id"]; ?>' class='text-red-600 hover:text-red-800' onclick='return confirm("Voulez-vous vraiment supprimer cette annonce ?")'>
+                                        <button class="px-3 py-1 bg-gray-600 text-white rounded">Delete</button>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
