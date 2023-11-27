@@ -45,7 +45,7 @@ $stmt->bind_param("ssssss", $username, $email, $password_hash, $confirm_password
 // Exécuter la requête
 if ($stmt->execute()) {
     // User ajouté avec succès, rediriger vers la page index avec un paramètre de succès
-    header("Location: users.php?success=1");
+    header("Location: sign_in.php");
     exit();
 } else {
     echo "Erreur lors de l'ajout du user : " . $stmt->error;
