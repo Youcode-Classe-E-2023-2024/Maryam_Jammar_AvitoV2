@@ -31,7 +31,8 @@ $password = $_POST['password'];
 $confirm_password = $_POST['confirm_password'];
 $phone = $_POST['phone'];
 $city = $_POST['city'];
-$id_role = $_POST['id_role'];
+// Ajouter cette ligne pour récupérer le rôle
+$role = "Announcer"; // Vous pouvez ajuster cela en fonction de votre logique
 
 // Vérifier si le mot de passe et la confirmation du mot de passe correspondent
 if ($password !== $confirm_password) {
@@ -42,9 +43,9 @@ if ($password !== $confirm_password) {
 $password_hash = password_hash($password, PASSWORD_BCRYPT);
 
 // Insérer l'utilisateur dans la base de données
-$sql = "INSERT INTO users (username, email, password, phone, city, id_role) VALUES (?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO users (username, email, password, phone, city, role) VALUES (?, ?, ?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ssssss", $username, $email, $password_hash, $phone, $city, $id_role);
+$stmt->bind_param("ssssss", $username, $email, $password_hash, $phone, $city, $role);
 
 if ($stmt->execute()) {
     // Récupérer l'ID du nouvel utilisateur inséré
@@ -53,7 +54,7 @@ if ($stmt->execute()) {
     // Enregistrer les informations de l'utilisateur dans la session
     $_SESSION['id_user'] = $nouvellement_inseré_id;
     $_SESSION['username'] = $username;
-    $_SESSION['id_role'] = $id_role;
+    $_SESSION['role'] = $role;
 
     // Rediriger vers une page sécurisée
     header("Location: sign_in.php");
