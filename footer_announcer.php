@@ -20,13 +20,13 @@
     <footer class="mx-0 mb-0 p-0 bg-blue-100 shadow dark:bg-gray-900 m-4">
         <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
             <div class="sm:flex sm:items-center sm:justify-between">
-                <a href="https://flowbite.com/" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+                <a href="announces.php" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
                     <img src="images/logo.png" class="h-8" alt="Flowbite Logo" />
                     <span class="text-gray-700 self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Avito</span>
                 </a>
                 <ul class="flex flex-wrap items-center space-x-6 mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
                     <li>
-                        <a href="home.php" class="text-gray-700 hover:underline me-4 md:me-6">Home</a>
+                        <a href="announcer.php" class="text-gray-700 hover:underline me-4 md:me-6">Home</a>
                     </li>
                     <li>
                         <a href="index.php" class="text-gray-700 hover:underline me-4 md:me-6">Announces</a>

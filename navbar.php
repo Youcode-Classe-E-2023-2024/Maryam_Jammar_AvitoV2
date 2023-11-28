@@ -50,9 +50,9 @@
         <div class="dropdown">
           <i id="userIcon" class="fas fa-user text-blue-500 cursor-pointer"></i>
           <!-- Ajoutez le menu déroulant ici -->
-          <div id="dropdownMenu" class="dropdown-menu hidden absolute right-0 top-0 mt-8">
-            <a href="#">Profile</a>
-            <a href="logout.php">Logout</a>
+          <div id="dropdownMenu" class="dropdown-menu hidden absolute right-0 top-0 mt-8 rounded">
+            <!-- <a href="#">Profile</a> -->
+            <a href="logout.php" class="rounded">Logout</a>
           </div>
         </div>
       </div>
