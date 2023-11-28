@@ -13,7 +13,7 @@
 
 <body>
     <?php include("navbar.php"); ?>
-    <a href="add_user.php" class="animate-bounce fixed left-0 mt-4 text-white bg-blue-600 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 text-center inline-block">
+    <a href="create.php" class="animate-bounce fixed left-0 mt-4 text-white bg-blue-600 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 text-center inline-block">
         Add announce
     </a>
     
@@ -37,8 +37,11 @@
             $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
             $startFrom = ($currentPage - 1) * $resultPerPage;
 
-            $sql = "SELECT * FROM annonces LIMIT $startFrom, $resultPerPage";
-            $result = $conn->query($sql);
+            $sql = "SELECT annonces.*, users.username 
+            FROM annonces
+            JOIN users ON annonces.id_user = users.id_user
+            LIMIT $startFrom, $resultPerPage";
+                $result = $conn->query($sql);
 
             if ($result === FALSE) {
                 echo "Erreur lors de la récupération des annonces : " . $conn->error;
@@ -58,17 +61,21 @@
                             </div>
                             <div class="flex items-center justify-between">
                                 <span class="text-2xl font-bold text-gray-900 dark:text-white"><?php echo $row["prix"]; ?> Dh</span>
-                                <div class="flex space-x-2">
-                                    <!-- Bouton Update -->
-                                    <a href='edit.php?id=<?php echo $row["id"]; ?>' class='text-blue-500 hover:text-blue-700'>
-                                        <button class="px-3 py-1 bg-green-600 text-white rounded">Update</button>
-                                    </a>
-                                    <!-- Bouton Delete -->
-                                    <a href='delete.php?id=<?php echo $row["id"]; ?>' class='text-red-600 hover:text-red-800' onclick='return confirm("Voulez-vous vraiment supprimer cette annonce ?")'>
-                                        <button class="px-3 py-1 bg-gray-600 text-white rounded">Delete</button>
-                                    </a>
-                                </div>
+
                             </div>
+                            <div class="flex items-center justify-between">
+                                    <p class="text-blue-800 ">Added by: <?php echo $row["username"]; ?></p>
+                                    <div class="flex space-x-2">
+                                        <!-- Bouton Update -->
+                                        <a href='update_announce.php?id=<?php echo $row["id"]; ?>' class='text-blue-500 hover:text-blue-700'>
+                                            <button class="px-3 py-1 bg-green-600 text-white rounded">Update</button>
+                                        </a>
+                                        <!-- Bouton Delete -->
+                                        <a href='delete.php?id=<?php echo $row["id"]; ?>' class='text-red-600 hover:text-red-800' onclick='return confirm("Voulez-vous vraiment supprimer cette annonce ?")'>
+                                            <button class="px-3 py-1 bg-gray-600 text-white rounded">Delete</button>
+                                        </a>
+                                    </div>
+                                </div>
                         </div>
                     </div>
             <?php

@@ -1,45 +1,44 @@
 <?php
-require_once 'connection.php';
+session_start();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION['id_user'])) {
+    // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+    header('Location: sign_in.php');
+    exit();
+}
+
+// Inclure le fichier de connexion à la base de données
+include 'connection.php';
+
+// Vérifier si le formulaire a été soumis
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Récupérer les données du formulaire
-    $titre = $_POST["titre"];
-    $description = $_POST["description"];
-    $prix = $_POST["prix"];
-    $date_publication = $_POST["date_publication"];
-    $image_url = $_POST["image_url"];
+    $titre = $_POST['titre'];
+    $description = $_POST['description'];
+    $prix = $_POST['prix'];
+    $date_publication = $_POST['date_publication'];
+    $image_url = $_POST['image_url'];
 
-    // Exemple d'utilisation de MySQLi (assurez-vous de remplacer les informations de connexion)
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "avito";
+    // Récupérer l'ID de l'utilisateur connecté depuis la session
+    $id_user = $_SESSION['id_user'];
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // Vérifier la connexion
-    if ($conn->connect_error) {
-        die("La connexion a échoué : " . $conn->connect_error);
-    }
-
-    // Échapper les données pour éviter les attaques par injection SQL
-    $titre = $conn->real_escape_string($titre);
-    $description = $conn->real_escape_string($description);
-    $date_publication = $conn->real_escape_string($date_publication);
-    $image_url = $conn->real_escape_string($image_url);
-
-    // Préparer la requête SQL pour insérer l'annonce dans la base de données
-    $sql = "INSERT INTO annonces (titre, description, prix, date_publication, image_url) VALUES ('$titre', '$description', $prix, '$date_publication', '$image_url')";
+    // Préparer la requête d'insertion
+    $sql = "INSERT INTO annonces (titre, description, prix, date_publication, image_url, id_user) VALUES (?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssdssi", $titre, $description, $prix, $date_publication, $image_url, $id_user);
 
     // Exécuter la requête
-    if ($conn->query($sql) === TRUE) {
-        // Annonce ajoutée avec succès, rediriger vers la page index avec un paramètre de succès
-        header("Location: index.php?success=1");
+    if ($stmt->execute()) {
+        // Rediriger vers la page d'accueil ou une autre page après l'ajout réussi
+        header('Location: index.php');
         exit();
     } else {
-        echo "Erreur lors de l'ajout de l'annonce : " . $conn->error;
+        echo "Erreur lors de l'ajout de l'annonce : " . $stmt->error;
     }
 
-    // Fermer la connexion
+    // Fermer la connexion et la requête
+    $stmt->close();
     $conn->close();
 }
+?>
