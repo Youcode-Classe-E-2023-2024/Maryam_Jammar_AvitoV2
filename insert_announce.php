@@ -27,7 +27,7 @@ $id_user = $_SESSION['id_user'];
 // Requête d'insertion dans la table des annonces
 $sql = "INSERT INTO annonces (id_user, titre, description, prix, date_publication, image_url) VALUES (?, ?, ?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("isdsbs", $id_user, $titre, $description, $prix, $date_publication, $image_url);
+$stmt->bind_param("isdsss", $id_user, $titre, $description, $prix, $date_publication, $image_url);
 
 // Exécuter la requête d'insertion
 if ($stmt->execute()) {

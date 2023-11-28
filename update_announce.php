@@ -69,7 +69,7 @@
     }
     ?>
 
-    <form action="update.php" method="POST">
+    <form action="update_logic.php" method="POST">
     <input type="hidden" name="id" value="<?php echo $id; ?>">
 
         <div class="mx-auto m-24 w-2/6 p-6 shadow-2xl rounded-lg">
