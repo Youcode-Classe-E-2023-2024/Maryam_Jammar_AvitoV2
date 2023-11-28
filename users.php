@@ -84,7 +84,7 @@
                             // echo "<td class='p-2'>" . $row["confirm_password"] . "</td>";
                             echo "<td class='p-2'>" .$row["phone"] . "</td>";
                             echo "<td class='p-2'>" .$row["city"] . "</td>";
-                            echo "<td class='p-2'>" .$row["id_role"] . "</td>";
+                            echo "<td class='p-2'>" .$row["role"] . "</td>";
                             echo "<td class='p-2 space-x-6'>
                 <a href='edit_user.php?id_user=" . $row["id_user"] . "' class='ml-4 text-blue-500 hover:text-blue-700'>
                     <i class='fas fa-edit'></i> 

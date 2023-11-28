@@ -20,7 +20,7 @@ session_start();
 // Vérifier si l'utilisateur est déjà connecté
 if (isset($_SESSION['id_user'])) {
     // L'utilisateur est déjà connecté, rediriger vers une page sécurisée
-    header("Location: home.php");
+    header("Location: sign_in.php");
     exit();
 }
 
@@ -56,7 +56,7 @@ if ($stmt->execute()) {
     $_SESSION['id_role'] = $id_role;
 
     // Rediriger vers une page sécurisée
-    header("Location: home.php");
+    header("Location: sign_in.php");
     exit();
 } else {
     echo "Erreur lors de l'inscription : " . $stmt->error;
