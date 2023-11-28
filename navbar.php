@@ -1,3 +1,17 @@
+<?php
+session_start();
+
+// Vérifiez si l'utilisateur est connecté et que la session 'username' est définie
+if (isset($_SESSION['username'])) {
+    $username = $_SESSION['username'];
+} else {
+    // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+    header("Location: login.php");
+    exit();
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,7 +53,6 @@
 
 
 
-
   <nav class="bg-blue-100 border-gray-200 dark:bg-gray-900">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
       <a href="index.php" class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -49,6 +62,7 @@
       <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse relative">
         <div class="dropdown">
           <i id="userIcon" class="fas fa-user text-blue-500 cursor-pointer"></i>
+          <span class="text-gray-800 dark:text-white"><?php echo $username; ?></span>
           <!-- Ajoutez le menu déroulant ici -->
           <div id="dropdownMenu" class="dropdown-menu hidden absolute right-0 top-0 mt-8 rounded">
             <!-- <a href="#">Profile</a> -->
@@ -56,6 +70,7 @@
           </div>
         </div>
       </div>
+
 
 
       <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">

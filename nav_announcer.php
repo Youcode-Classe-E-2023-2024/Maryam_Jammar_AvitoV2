@@ -1,3 +1,17 @@
+<?php
+session_start();
+
+// Vérifiez si l'utilisateur est connecté et que la session 'username' est définie
+if (isset($_SESSION['username'])) {
+    $username = $_SESSION['username'];
+} else {
+    // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+    header("Location: login.php");
+    exit();
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,13 +66,15 @@
             <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse relative">
                 <div class="dropdown">
                     <i id="userIcon" class="fas fa-user text-blue-500 cursor-pointer"></i>
+                    <span class="text-gray-800 dark:text-white"><?php echo $username; ?></span>
                     <!-- Ajoutez le menu déroulant ici -->
-                    <div id="dropdownMenu" class="dropdown-menu hidden absolute right-0 top-0 mt-8">
+                    <div id="dropdownMenu" class="dropdown-menu hidden absolute right-0 top-0 mt-8 rounded">
                         <!-- <a href="#">Profile</a> -->
-                        <a href="logout.php">Logout</a>
+                        <a href="logout.php" class="rounded">Logout</a>
                     </div>
                 </div>
             </div>
+
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
                 <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:border-gray-700">
                     <li>
