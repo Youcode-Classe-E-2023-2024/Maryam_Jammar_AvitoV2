@@ -7,11 +7,32 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-  <!-- <style>
-        .dropdown-menu {
-            display: none;
-        }
-    </style> -->
+  <style>
+    .dropdown-menu {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 8px;
+      z-index: 1;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 8px;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .dropdown-menu a:hover {
+      background-color: #f5f5f5;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+
+
 </head>
 
 <body>
@@ -25,18 +46,18 @@
         <img src="images/logo.png" class="h-8" alt="Avito Logo" />
         <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white text-blue-600">Avito</span>
       </a>
-      <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+      <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse relative">
         <div class="dropdown">
-          <i class="fas fa-user text-blue-500 cursor-pointer"></i>
+          <i id="userIcon" class="fas fa-user text-blue-500 cursor-pointer"></i>
           <!-- Ajoutez le menu déroulant ici -->
-          <div class="dropdown-menu">
+          <div id="dropdownMenu" class="dropdown-menu hidden absolute right-0 top-0 mt-8">
             <a href="#">Profile</a>
             <a href="logout.php">Logout</a>
           </div>
         </div>
-        <!-- <i class="fas fa-user text-blue-500" href="edit_user.php"></i> -->
-
       </div>
+
+
       <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
         <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-blue-100 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
           <li>
@@ -54,24 +75,26 @@
       </div>
     </div>
   </nav>
-  <!-- <script>
-        function toggleDropdown() {
-            var dropdownMenu = document.getElementById("myDropdown");
-            dropdownMenu.style.display = (dropdownMenu.style.display === 'block') ? 'none' : 'block';
-        }
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var userIcon = document.getElementById("userIcon");
+      var dropdownMenu = document.getElementById("dropdownMenu");
 
-        window.onclick = function (event) {
-            if (!event.target.matches('.fa-user')) {
-                var dropdowns = document.getElementsByClassName("dropdown-menu");
-                for (var i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.style.display === 'block') {
-                        openDropdown.style.display = 'none';
-                    }
-                }
-            }
+      userIcon.addEventListener("click", function() {
+        // Toggle la classe 'hidden' pour afficher ou cacher le menu déroulant
+        dropdownMenu.classList.toggle("hidden");
+      });
+
+      // Cacher le menu déroulant si l'utilisateur clique en dehors de celui-ci
+      document.addEventListener("click", function(event) {
+        if (!userIcon.contains(event.target) && !dropdownMenu.contains(event.target)) {
+          dropdownMenu.classList.add("hidden");
         }
-    </script> -->
+      });
+    });
+  </script>
+
+
 </body>
 
 </html>
