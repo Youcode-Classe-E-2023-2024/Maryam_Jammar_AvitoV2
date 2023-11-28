@@ -110,6 +110,25 @@ if (isset($_SESSION['username'])) {
       });
     });
   </script>
+<script>
+  // Fonction pour afficher la page de profil
+  function showProfile() {
+    // Récupérer l'élément de la page de profil
+    var profilePage = document.getElementById('profilePage');
+
+    // Afficher la page de profil
+    profilePage.style.display = 'flex';
+  }
+
+  // Fonction pour masquer la page de profil
+  function hideProfile() {
+    // Récupérer l'élément de la page de profil
+    var profilePage = document.getElementById('profilePage');
+
+    // Masquer la page de profil
+    profilePage.style.display = 'none';
+  }
+</script>
 
 
 </body>
