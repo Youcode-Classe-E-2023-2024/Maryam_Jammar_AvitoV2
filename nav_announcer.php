@@ -72,7 +72,7 @@ if (isset($_SESSION['username'])) {
                     <span class="text-gray-800 dark:text-white"><?php echo $username; ?></span>
                     <!-- Ajoutez le menu déroulant ici -->
                     <div id="dropdownMenu" class="dropdown-menu hidden absolute right-0 top-0 mt-8 rounded">
-                        <!-- <a href="#">Profile</a> -->
+                        <a href="profile.php">Profile</a>
                         <a href="logout.php" class="rounded">Logout</a>
                     </div>
                 </div>
