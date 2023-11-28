@@ -40,7 +40,7 @@ session_start();
             if (isset($_SESSION['id_user'])) {
                 $id_user = $_SESSION['id_user'];
 
-                $resultPerPage = 6; // Nombre d'annonces par page
+                $resultPerPage = 8; // Nombre d'annonces par page
                 $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
                 $startFrom = ($currentPage - 1) * $resultPerPage;
 

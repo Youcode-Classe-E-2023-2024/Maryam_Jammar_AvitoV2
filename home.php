@@ -1,8 +1,8 @@
 <?php
-// Démarrez la session (assurez-vous que cela se trouve au début du script)
+// Démarrez la session 
 session_start();
 
-// Vérifiez si l'utilisateur est connecté (vous devrez adapter cela en fonction de votre système d'authentification)
+// Vérifiez si l'utilisateur est connecté
 if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
 } else {

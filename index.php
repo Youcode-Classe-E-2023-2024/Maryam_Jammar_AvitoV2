@@ -33,7 +33,7 @@
                 die("La connexion a échoué : " . $conn->connect_error);
             }
 
-            $resultPerPage = 6; // Nombre d'annonces par page
+            $resultPerPage = 8; // Nombre d'annonces par page
             $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
             $startFrom = ($currentPage - 1) * $resultPerPage;
 

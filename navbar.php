@@ -1,5 +1,8 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    // Vérifiez si la session n'est pas déjà active
+    session_start();
+}
 
 // Vérifiez si l'utilisateur est connecté et que la session 'username' est définie
 if (isset($_SESSION['username'])) {
@@ -10,7 +13,6 @@ if (isset($_SESSION['username'])) {
     exit();
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
