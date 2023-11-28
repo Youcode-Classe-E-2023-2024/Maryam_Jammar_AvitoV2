@@ -1,56 +1,50 @@
 <?php
-// connection.php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "avito";
+include 'connection.php';
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// signin.php
 session_start();
 
-if (isset($_SESSION['id_user'])) {
-    // Redirect to a secure page if the user is already logged in
-    header("Location: announcer.php");
-    exit();
-}
+if (isset($_POST['submit'])) {
+    // Assurez-vous que ces variables sont correctement définies
+    $dbname = "avito";
+    $users = "users";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['name'];
-    $password = $_POST['password'];
+    $conn->select_db($dbname);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $CheckPass = $_POST['password'];
 
-    $stmt = $conn->prepare("SELECT id_user, username, password, id_role FROM users WHERE username = ?");
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $stmt->store_result();
+    // Fetch le mot de passe haché depuis la base de données basé sur l'e-mail fourni
+    $select = "SELECT * FROM $users WHERE email = '$email'";
+    $result = mysqli_query($conn, $select);
 
-    if ($stmt->num_rows > 0) {
-        $stmt->bind_result($id_user, $db_username, $db_password, $id_role);
-        $stmt->fetch();
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_array($result);
 
-        if (password_verify($password, $db_password)) {
-            $_SESSION['id_user'] = $id_user;
-            $_SESSION['username'] = $db_username;
-            $_SESSION['id_role'] = $id_role;
+        // Utilisez password_verify pour vérifier si le mot de passe entré est correct
+        if (password_verify($CheckPass, $row['password'])) {
 
-            header("Location: announcer.php");
-            exit();
+            if ($row['role'] == 'Admin') {
+                $_SESSION['role'] = $row['role'];
+                $_SESSION['id_user'] = $row['id_user'];
+                $_SESSION['username'] = $row['username'];
+                $_SESSION['phone'] = $row['phone'];
+                header('location: home.php');
+            } elseif ($row['role'] == 'Announcer') {
+                $_SESSION['id_user'] = $row['id_user'];
+                $_SESSION['username'] = $row['username'];
+                $_SESSION['phone'] = $row['phone'];
+                header('location: announcer.php');
+            } else {
+                echo 'Unknown role!';
+                // Redirection vers une page d'erreur ou une autre logique
+            }
         } else {
-            // Incorrect password
-            echo "Incorrect password. Please try again.";
+            echo 'Incorrect email or password!';
+            header('location: sign_up.php'); 
         }
     } else {
-        // Username not found
-        echo "Username not found. Please check your username or sign up for a new account.";
+        echo 'Incorrect email or password!';
+        header('location: sign_up.php'); 
     }
-
-    $stmt->close();
 }
-
 $conn->close();
 ?>
